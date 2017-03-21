@@ -5,7 +5,7 @@ class GiftsController < ApplicationController
   # GET /gifts
   # GET /gifts.json
   def index
-    @gifts = Gift.all
+    @gifts = current_user.gifts#Gift.all
   end
 
   # GET /gifts/1
@@ -27,7 +27,7 @@ class GiftsController < ApplicationController
   def create
     @gift = Gift.new(gift_params)
     @user = current_user
-    @gift.user_id = @user.uid
+    @gift.user_id = @user.id
     @og = OpenGraph.new(@gift.url)
     @gift.title = @og.title
     @gift.description = @og.description
